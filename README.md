@@ -6,51 +6,55 @@ This project filters and compares data from a master dataset based on multiple r
 ---
 
 ### 1. Data Loading
-
-- Use `Pathlib` to specify the folder path `Data Set/csv`.
-- Automatically load all `.csv` files from the folder into a dictionary named `dataframes` for easy access.
-
----
+- Use `Pathlib` to load all `.csv` files from the folder `Data Set/csv` into a dictionary for easy access.
 
 ### 2. Parameter Setup
+- Specify the **base file** (`2017-2022-Meger.csv`) and key feature column (`id_number`).
+- Define feature mappings for reference files using `去個資編號`.
 
-- Specify the **base file** (master dataset): `2017-2022-Meger.csv`.
-- Specify the **key feature** column in the base file: `id_number`.
-- Define the feature mappings for other reference files (all using `去個資編號` as the feature column).
-
----
-
-### 3. Data Filtering Process
-
-- Filter rows from the base file where `id_number` matches values found in the reference files.
-- Avoid selecting the same ID multiple times during filtering.
-- Record and display:
-  - The number of samples selected from OSA (Obstructive Sleep Apnea) reports
-  - The number of samples selected from BMD (Bone Mineral Density) reports
-
-- Save the filtered data to: `Data Set/filter/2017-2022-filter.csv`.
-
----
+### 3. Data Filtering
+- Filter rows in the base file based on matching `id_number` values from reference files.
+- Avoid duplicates and display counts for OSA and BMD samples.
+- Save filtered data to `2017-2022-filter.csv`.
 
 ### 4. Advanced Comparison
-
-- Further categorize the selected data:
-  - Samples found **only** in OSA reports
-  - Samples found **only** in BMD reports
-  - Samples found **in both** OSA and BMD reports
-- Display the sample counts for each category.
-
----
+- Categorize data into samples found only in OSA reports, only in BMD reports, and in both.
 
 ### 5. Duplicate Check
+- Check for duplicate `id_number` values in the filtered data and display results.
 
-- Read the newly created file `2017-2022-filter.csv`.
-- Check if any `id_number` appears more than once.
-- If duplicates are found, display the duplicated `id_number` values and their counts; if no duplicates, display a message confirming no duplicates.
+### 📂 Output
+- Save the filtered dataset as `2017-2022-filter.csv`.
+- Display summary statistics and duplicates during execution.
 
 ---
 
-### 📂 Output Results
+## Data Preprocessing & Model Evaluation
 
-- Filtered dataset saved as: `Data Set/filter/2017-2022-filter.csv`
-- Summary statistics and duplicate checks printed to the console during execution.
+### 1. Data Preprocessing
+- Remove rows with missing BMI or OSA results.
+- Filter BMI (18.5 ≤ BMI ≤ 60) and age (50 ≤ age ≤ 85) to ensure valid ranges.
+
+### 2. Feature Analysis
+- Perform T-tests for continuous features and Chi-square tests for categorical features to assess their relation to `OSA_result`.
+
+### 3. Model Definition
+- Use multiple models: Logistic Regression, Random Forest, XGBoost, AdaBoost, and SVM.
+
+### 4. Cross-Validation
+- Perform 10-fold cross-validation for model evaluation (accuracy and ROC curve analysis).
+
+### 5. Hyperparameter Tuning
+- Optionally tune hyperparameters for models like Random Forest and XGBoost.
+
+### 6. Feature Grouping & Range Filtering
+- Group BMI into ranges and filter the dataset based on feature ranges before training.
+
+### 7. AUC Calculation
+- Calculate AUC for training and validation sets to assess model performance.
+
+### 8. Results Output
+- Save accuracy and AUC results, and export ROC curve images.
+
+### 9. Additional Analysis
+- Calculate Variance Inflation Factor (VIF) to detect multicollinearity and plot correlation matrices.
