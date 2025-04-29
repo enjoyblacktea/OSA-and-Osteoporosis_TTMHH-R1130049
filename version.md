@@ -2,7 +2,7 @@
 3.8.20 (default, Oct  3 2024, 15:24:27) [GCC 11.2.0]
 
 # Package versions:
-numpy: 1.24.4
+numpy: 1.24.4 \n
 pandas: 1.5.3
 matplotlib: 3.7.2
 seaborn: 0.13.2
